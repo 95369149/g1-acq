@@ -1,0 +1,14 @@
+#!name=G1 ACQ v2
+#!desc=Google One 订阅页商品 ID 映射 v2：优惠档在目录才映射，否则降级土区打法（Ultra 月付→基础月付），日志写清源商品是否出现。Surge / Loon 实测。原作者 crhywun/g1-acq v6，v2 由 Muse 改。
+#!openUrl=https://github.com/95369149/g1-acq
+#!author=crhywun (v2 by Muse)
+#!system=ios
+
+[Rule]
+AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT-NO-DROP
+
+[Script]
+g1-acq-v2 = type=http-response,pattern=^https:\/\/one\.google\.com\/ai\?,requires-body=1,max-size=0,script-path=https://cdn.jsdelivr.net/gh/95369149/g1-acq@main/g1-acq-v2.js
+
+[MITM]
+hostname = %APPEND% one.google.com
